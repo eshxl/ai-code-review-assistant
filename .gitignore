@@ -1,0 +1,47 @@
+# Java / Spring Boot
+/target/
+/*.iml
+/.idea/
+/*.class
+/.mvn/
+*.log
+*.jar
+*.war
+
+# Python / FastAPI / Workers
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+.env.*
+*.egg-info/
+dist/
+build/
+
+# Angular / Frontend
+node_modules/
+dist/
+.angular/
+coverage/
+
+# Environment & OS
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+*.bak
+*.tmp
+*.log
+.env.local
+.env.*.local
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Misc
+*.zip
+*.tar.gz
+*.7z
