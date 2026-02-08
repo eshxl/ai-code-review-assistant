@@ -1,10 +1,40 @@
+# General / OS / Environment
 HELP.md
+.DS_Store
+.env
+
+# Archive / Temp
+_archive/
+
+# Java / Build Output
 target/
-.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+.mvn/wrapper/maven-wrapper.jar
+*.class
 
-### STS ###
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# =========================
+# IDEs and Editors
+# =========================
+
+### VS Code
+.vscode/
+
+### IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### STS / Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -13,23 +43,9 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
+### NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-**/_archive/

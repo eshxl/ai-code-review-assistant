@@ -13,4 +13,11 @@ public class WebClientConfig {
                 .baseUrl("http://localhost:9001")
                 .build();
     }
+
+    @Bean
+    public WebClient aiWebClient() {
+        return WebClient.builder()
+                .baseUrl("http://localhost:9002")
+                .build();
+    }
 }

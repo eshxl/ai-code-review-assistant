@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.aicode.backend.dto.AiReviewResponse;
 import com.aicode.backend.model.Finding;
 import com.aicode.backend.model.Job;
 import com.aicode.backend.model.JobStatus;
@@ -27,13 +29,14 @@ public class JobExecutor {
     private final FindingRepository findingRepository;
     private final SecretScanner secretScanner;
     private final SecurityFindingRepository securityFindingRepository;
+    private final AiReviewService aiReviewService;
 
     @Async
     public void executeReviewJob(UUID jobId) {
         try {
             log.info("Starting job {}", jobId);
 
-            // Step 1: mark as RUNNING
+            // mark as RUNNING
             jobService.updateStatus(jobId, JobStatus.RUNNING);
 
             // Simulate static analysis
@@ -69,12 +72,12 @@ public class JobExecutor {
             // Parse JSON
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
-            JsonNode findings = root.get("findings");
+            JsonNode findingsNode = root.get("findings");
 
-            if (findings != null && findings.isArray()) {
-                for (JsonNode f : findings) {
+            if (findingsNode != null && findingsNode.isArray()) {
+                for (JsonNode f : findingsNode) {
                     Finding finding = new Finding();
-                    finding.setReviewId(jobId); // temporary mapping
+                    finding.setReviewId(jobId);
                     finding.setToolName("pylint");
                     finding.setSeverity(f.get("type").asText());
                     finding.setMessage(f.get("message").asText());
@@ -84,8 +87,24 @@ public class JobExecutor {
                 }
             }
             
-            // Simulate AI processing
-            Thread.sleep(3000);
+            // AI reasoning & patch generation
+            List<Finding> findings = findingRepository.findByReviewId(jobId);
+
+            AiReviewResponse aiResponse = aiReviewService.analyze(
+                    "python",
+                    code,
+                    findings
+            );
+
+            // For now: attach same AI result to all findings
+            for (Finding finding : findings) {
+                finding.setAiExplanation(aiResponse.explanation());
+                finding.setAiPatch(aiResponse.patch());
+                finding.setAiConfidence(aiResponse.confidence());
+            }
+            log.info("AI explanation: {}", aiResponse.explanation());
+
+            findingRepository.saveAll(findings);
 
             // Step 2: mark as COMPLETED
             jobService.updateStatus(jobId, JobStatus.COMPLETED);

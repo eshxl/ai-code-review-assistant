@@ -27,6 +27,14 @@ public class Finding {
 
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "TEXT")
+    private String aiExplanation;
+
+    @Column(columnDefinition = "TEXT")
+    private String aiPatch;
+
+    private Double aiConfidence;
+
     @PrePersist
     void onCreate() {
         createdAt = LocalDateTime.now();
