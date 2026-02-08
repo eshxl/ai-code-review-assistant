@@ -1,3 +1,9 @@
+/**
+ * Dev/Test-only controller.
+ * Used for validating repository and persistence behavior.
+ * Not part of production API surface.
+ */
+
 package com.aicode.backend.controller;
 
 import com.aicode.backend.model.CodeReviewSession;
