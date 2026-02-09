@@ -21,6 +21,9 @@ public class SecurityFinding {
     private String type; // e.g. AWS_ACCESS_KEY, PASSWORD
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private String filePath;
+
     @PrePersist
     void onCreate() {
         createdAt = LocalDateTime.now();

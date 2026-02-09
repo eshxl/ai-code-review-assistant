@@ -51,6 +51,7 @@ public class JobExecutor {
                     SecurityFinding sf = new SecurityFinding();
                     sf.setReviewId(jobId);
                     sf.setType(type);
+                    sf.setFilePath("submitted-snippet");
                     securityFindingRepository.save(sf);
                 }
 
