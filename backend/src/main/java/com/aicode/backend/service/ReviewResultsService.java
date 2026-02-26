@@ -81,7 +81,9 @@ public class ReviewResultsService {
                 new AiResultDTO(
                         finding.getAiExplanation(),
                         finding.getAiPatch(),
-                        Optional.ofNullable(finding.getAiConfidence()).orElse(0.0)
+                        Optional.ofNullable(finding.getAiConfidence()).orElse(0.0),
+                        finding.getOriginalCode(),
+                        finding.getFixedCode()
                 )
         );
     }

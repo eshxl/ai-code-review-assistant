@@ -99,11 +99,13 @@ public class JobExecutor {
 
             // For now: attach same AI result to all findings
             for (Finding finding : findings) {
-                finding.setAiExplanation(aiResponse.explanation());
-                finding.setAiPatch(aiResponse.patch());
-                finding.setAiConfidence(aiResponse.confidence());
+                finding.setAiExplanation(aiResponse.getExplanation());
+                finding.setAiPatch(aiResponse.getPatch());
+                finding.setAiConfidence(aiResponse.getConfidence());
+                finding.setOriginalCode(aiResponse.getOriginalCode());
+                finding.setFixedCode(aiResponse.getFixedCode());
             }
-            log.info("AI explanation: {}", aiResponse.explanation());
+            log.info("AI explanation: {}", aiResponse.getExplanation());
 
             findingRepository.saveAll(findings);
 

@@ -33,6 +33,12 @@ public class Finding {
     @Column(columnDefinition = "TEXT")
     private String aiPatch;
 
+    @Column(columnDefinition = "TEXT")
+    private String originalCode;
+
+    @Column(columnDefinition = "TEXT")
+    private String fixedCode;
+
     private Double aiConfidence;
 
     @PrePersist

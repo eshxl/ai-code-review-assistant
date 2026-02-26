@@ -19,6 +19,10 @@ public class SecretScanner {
     public List<String> scan(String code) {
         List<String> findings = new ArrayList<>();
 
+        if (code == null || code.trim().isEmpty()) {
+            return Collections.emptyList(); 
+        }
+
         for (Map.Entry<String, Pattern> entry : patterns.entrySet()) {
             if (entry.getValue().matcher(code).find()) {
                 findings.add(entry.getKey());

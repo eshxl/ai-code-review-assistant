@@ -1,0 +1,42 @@
+<div class="max-w-2xl mx-auto mt-12 animate-fade-in">
+  <div class="bg-editor-panel border border-editor-border rounded-xl p-8 shadow-2xl">
+    
+    <div class="flex items-center justify-between mb-8 border-b border-editor-border pb-4">
+      <h2 class="text-xl font-semibold text-gray-100">Review Pipeline</h2>
+      <span class="text-xs font-mono text-editor-muted bg-editor-bg px-2 py-1 rounded border border-editor-border">
+        Job: {{ jobId }}
+      </span>
+    </div>
+
+    <div class="space-y-6">
+      <div class="flex items-center gap-5">
+        
+        <div class="relative w-10 h-10 flex items-center justify-center">
+          <div *ngIf="status === 'QUEUED' || status === 'RUNNING'" class="absolute inset-0 border-2 border-accent-primary border-t-transparent rounded-full animate-spin"></div>
+          <div *ngIf="status === 'QUEUED' || status === 'RUNNING'" class="w-3 h-3 bg-accent-primary rounded-full"></div>
+          <span *ngIf="status === 'FAILED'" class="text-2xl text-status-warning">⚠️</span>
+        </div>
+        
+        <div>
+          <p class="font-bold text-lg" [ngClass]="status === 'FAILED' ? 'text-status-warning' : 'text-gray-100'">
+            {{ status === 'QUEUED' ? 'Waiting for worker...' : 
+               status === 'RUNNING' ? 'Analysis Engine Active' : 
+               status === 'FAILED' ? 'Pipeline Failed' : 'Finalizing...' }}
+          </p>
+          <p class="text-sm text-editor-muted mt-1">
+            {{ status === 'QUEUED' ? 'Position in queue: 1' : 
+               status === 'RUNNING' ? 'Running static linters and AI reasoning. This may take a moment.' : '' }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="status === 'FAILED'" class="mt-8 p-5 bg-status-warning/10 border border-status-warning rounded-lg">
+      <p class="text-sm text-gray-300">The backend encountered an error: <strong class="text-status-warning">{{ errorMessage || 'AI Service unreachable or timed out.' }}</strong></p>
+      <button (click)="goHome()" class="mt-5 px-5 py-2 bg-status-warning text-black font-bold text-sm rounded hover:bg-yellow-600 transition-colors">
+        Return to Dashboard
+      </button>
+    </div>
+
+  </div>
+</div>
