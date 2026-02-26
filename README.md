@@ -99,7 +99,6 @@ The system is designed with production-oriented architecture principles and modu
 
 ![Security Block](screenshots/security-block.png)
 
-> **Note:** Create a `screenshots/` folder in your repository and add images with the filenames above to display them here.
 
 ---
 
